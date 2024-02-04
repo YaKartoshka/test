@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="javascript:void(0)">NazWeb</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav me-auto d-flex justify-content-around">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/form">Bayurzhan</a>
+                        </li>
+                      
+                    </ul>
+                    <form class="d-flex">
+                        <a href="/admin"><button class="btn btn-primary" type="button" id="adminBtn">Admin
+                                panel</button></a>
+                    </form>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container mt-5">
+            <h2>Форма ранжирования университетов</h2>
+            <form id="universityForm">
+                <div class="form-group">
+                    <label for="userName">Ваше ФИО:</label>
+                    <input type="text" class="form-control" id="userName" name="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="ranking">Ранг:</label>
+                    <input type="number" class="form-control" id="ranking" name="ranking" required>
+                </div>
+                <div class="form-group">
+                    <label for="academicReputation">Академическая репутация:</label>
+                    <input type="number" class="form-control" id="academicReputation" name="academicReputation" min="1"
+                        max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="facultyQuality">Качество обучение:</label>
+                    <input type="number" class="form-control" id="facultyQuality" name="facultyQuality" min="1" max="5"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="facilities">Условия и материально-техническое обеспечение:</label>
+                    <input type="number" class="form-control" id="facilities" name="facilities" min="1" max="5"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="researchOpportunities">Возможности для научных исследований:</label>
+                    <input type="number" class="form-control" id="researchOpportunities" name="researchOpportunities"
+                        min="1" max="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="campusLife">Студенческая жизнь:</label>
+                    <input type="number" class="form-control" id="campusLife" name="campusLife" min="1" max="5"
+                        required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+                <br>
+                <br>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="content">
+            <h1>NazWeb</h1>
+            <br>
+            <br>
+            <address>
+                <h5>Made By Nazerke</h5>
+            </address>
+        </div>
+        <nav>
+            <a href="">Contact us</a>
+            <a href="/form">Fill the form</a>
+            <a href="">Terms and Policy</a>
+        </nav>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://s2.webapi.ai/chat-widget/uniq-chat.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#universityForm').submit(function (e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/forms/add',
+                    data: formData,
+                    success: function (response) {
+                        console.log('Форма успешно отправлена');
+                        console.log(response);
+                        window.location.reload()
+                    },
+                    error: function (error) {
+                        console.error('Ошибка при отправке формы');
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
